@@ -8,44 +8,32 @@ public class HomePageTest extends BaseClass {
 	JavascriptExecutor js;
 		
 	@Test(enabled = true, priority = 1)
-	public void clickLogoTest() throws InterruptedException {
-		//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		//wait.until(ExpectedConditions.visibilityOfElementLocated((By.id("logo-id"))));	
-		//wait.until(ExpectedConditions.elementToBeClickable(By.id("logo-id")));	
-		js = (JavascriptExecutor) driver;
-		js.executeScript("document.querySelector('.preloader').remove();");
-	
+	public void clickLogoTest() {	
+		//Intercepted Exception can be handled by JavascriptExecutor or Thread.sleep
+		//js = (JavascriptExecutor) driver;
+		//js.executeScript("document.querySelector('.preloader').remove();");
 		homePage.clickLogo();
-		Thread.sleep(3000);	
+	
 	}
 	
 	@Test(enabled = true, priority = 2)
-	public void clickCoursesTest() throws InterruptedException {
-		js = (JavascriptExecutor) driver;
-		js.executeScript("document.querySelector('.preloader').remove();");
-		
+	public void clickCoursesTest()  {
+		//js = (JavascriptExecutor) driver;
+		//js.executeScript("document.querySelector('.preloader').remove();");	
 		homePage.clickCourses();
-		Thread.sleep(5000);
 	}
 	
 	@Test(enabled = true, priority = 3)
-	public void LoginTest() throws InterruptedException {
-		js = (JavascriptExecutor) driver;
-		js.executeScript("document.querySelector('.preloader').remove();");
-		
-		Thread.sleep(2000);
+	public void LoginTest()  {
+		//js = (JavascriptExecutor) driver;
+		//js.executeScript("document.querySelector('.preloader').remove();");		
 		homePage.clickLogin();;
-		Thread.sleep(2000);
-		homePage.clickUserName();
-		Thread.sleep(3000);
+		homePage.typeIncorrectUserName();
 		homePage.clearUserName();
-		Thread.sleep(2000);
-		homePage.clickUserName();
-		Thread.sleep(3000);
+		homePage.typeUserName();
 		homePage.clickPassword();
-		Thread.sleep(3000);
 		homePage.clickLoginButton();
-		Thread.sleep(3000);
+		//This is just Day01. There will be lots of new changes in coming days.
 	}
 
 }
