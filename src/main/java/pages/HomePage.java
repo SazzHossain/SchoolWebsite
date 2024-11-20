@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+//We have to manually import to get access of CommonActions class.
+//This is called static import
+import static commonMethods.CommonActions.*;
 
 public class HomePage {
 	
@@ -40,31 +43,49 @@ public class HomePage {
 	
 	
 	public void clickLogo() {
-		logo.click();
+		pause(2000);
+		try {	
+			clickElement(logo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void clickCourses() {
-		courses.click();
+		pause(3000);
+		clickElement(courses);
+		
 	}
 	
 	public void clickLogin() {
-		login.click();
+		pause(3000);
+		clickElement(login);
 	}
 	
-	public void clickUserName() {
-		username.sendKeys("testaccount@infosys.com");
+	public void typeIncorrectUserName() {
+		pause(3000);
+		inputText (username, "emailKoro@gmail.com");
+	}
+	
+	public void typeUserName() {
+		pause(3000);
+		inputText (username, "mtks483@gmail.com");
 	}
 	
 	public void clearUserName() {
-		username.clear();
+		pause(3000);
+		clearElement(username);
 	}
 	
 	public void clickPassword() {
-		password.sendKeys("Il0v536@#%^*SDRGS");
+		pause(3000);
+		inputText(password, "Tofael@483");
 	}
 	
 	public void clickLoginButton() {
-		loginBtn.click();
+		pause(3000);
+		clickElement(login);
+		pause(3000);
 	}
 
 }
