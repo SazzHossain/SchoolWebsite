@@ -6,6 +6,11 @@ import baseUtil.BaseClass;
 
 public class HomePageTest extends BaseClass {
 	JavascriptExecutor js;
+	
+	@Test
+	public void testLogoDisplay() {
+		homePage.logoDisplayValidation();
+	}
 		
 	@Test(enabled = true, priority = 1)
 	public void clickLogoTest() {	
@@ -13,7 +18,17 @@ public class HomePageTest extends BaseClass {
 		//js = (JavascriptExecutor) driver;
 		//js.executeScript("document.querySelector('.preloader').remove();");
 		homePage.clickLogo();
+	}
 	
+	@Test
+	public void clickEnrollNowTest() {
+		homePage.clickEnrollNow();
+	}
+	
+	@Test
+	public void clickForgotPassTest() {
+		homePage.clickLoginButton();;
+		homePage.clickForgotPassword();;
 	}
 	
 	@Test(enabled = true, priority = 2)
@@ -27,7 +42,7 @@ public class HomePageTest extends BaseClass {
 	public void LoginTest()  {
 		//js = (JavascriptExecutor) driver;
 		//js.executeScript("document.querySelector('.preloader').remove();");		
-		homePage.clickLogin();;
+		homePage.clickLogin();
 		homePage.typeIncorrectUserName();
 		homePage.clearUserName();
 		homePage.typeUserName();
