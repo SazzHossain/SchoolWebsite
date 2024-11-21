@@ -46,4 +46,34 @@ public class CommonActions {
 			}
 }
 		
+		//common method for isDisplayed()
+		public static void elementDisplayed(WebElement element) {
+			try {
+				boolean flag = element.isDisplayed();
+				Loggers.logTheTest(element + "<---------> is Displayed, " + flag);
+			} catch (NoSuchElementException | NullPointerException e) {
+				Loggers.logTheTest(element + "<----------> is not Displayed\n" + e.getMessage() );
+			}		
+		}
+		
+		//common method for isEnabled()
+		public static void elementEnabled(WebElement element) {
+			try {
+				boolean flag = element.isEnabled();
+				Loggers.logTheTest(element + "<---------> is Enabled, " + flag);
+			} catch (NoSuchElementException | NullPointerException e) {
+				Loggers.logTheTest(element + "<----------> is not Enabled\n" + e.getMessage() );
+			}
+		}
+		
+		//common method for isSelected()
+		public static void elementSelected (WebElement element){
+			try {
+				boolean flag = element.isSelected();
+				Loggers.logTheTest(element + "<---------> is Selected, " + flag);
+			} catch (NoSuchElementException | NullPointerException e) {
+				Loggers.logTheTest(element + "<----------> is not Selected\n" + e.getMessage() );
+			}
+		
+}
 }
