@@ -1,19 +1,26 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 //We have to manually import to get access of CommonActions class.
 //This is called static import
 import static commonMethods.CommonActions.*;
 
+import java.util.List;
+import java.util.Set;
+
 public class HomePage {
 	
-	WebDriver driver;
+	public WebDriver driver;
+	public Select select;
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
@@ -59,6 +66,67 @@ public class HomePage {
 	@FindBy
 	(xpath = "(//*[text() = 'Mentors'])[1]")
 	WebElement mentors;
+	
+	@FindBy
+	(linkText = "Automation")
+	WebElement automationBtn;
+	
+	@FindBy
+	(xpath = "//*[@class='automation-main-btn']")
+	WebElement mouseHoverActionBtn;
+	
+	@FindBy
+	(linkText = "Enroll Now")
+	WebElement enrollNowInsideMouseHover;
+	
+	@FindBy
+	(xpath = "//*[text() = 'Please enter your personal and contact information.'] ")
+	WebElement childWindowHeader;
+	
+	@FindBy
+	(xpath = "//*[@name='f_name']")
+	WebElement fName;
+	
+	@FindBy
+	(xpath = "//*[@name='m_name']")
+	WebElement mName;
+	
+	@FindBy
+	(xpath = "//*[@name='l_name']")
+	WebElement lName;
+	
+	@FindBy
+	(xpath = "//*[@name='i_am']")
+	WebElement imDropDown;
+	
+	@FindBy
+	(xpath = "//*[@id='id_course_wish_to_enroll']")
+	WebElement courseWishToEnroll;
+	
+	@FindBy
+	(xpath = "//*[@name='phone']")
+	WebElement phoneNumber;
+	
+	@FindBy
+	(xpath = "//*[@name='email']")
+	WebElement emailInput;
+	
+	@FindBy
+	(xpath = "//*[@name='password']")
+	WebElement passwordInput;
+	
+	
+	@FindBy
+	(xpath = "//*[@id='id_birth_year']")
+	WebElement birthYear;
+	
+	@FindBy
+	(xpath = "//*[@name='birth_year']/option")
+	List <WebElement> birthYearList;
+	
+	@FindBy
+	(xpath = "//*[@id='id_gender']")
+	WebElement gender;
 	
 	
 	public void clickLogo() {
@@ -191,6 +259,122 @@ public class HomePage {
 		//verifyTextOfTheWebElement(loginBtn, null); Text for the login button is not available in the Enthrall 		website
 		clickElement(loginBtn);
 		pause(3000);
+	}
+	
+	public void useOfMouseHoverOver() {
+		pause(3000);
+		clickElement(loginHeader);
+		inputText(username, "mtks483@gmail.com");
+		inputText(password, "Tofael@483");
+		clickElement(loginBtn);
+		//Avobe actions are just for login to the website.
+		clickElement(automationBtn);
+		Actions actions = new Actions(driver);
+		actions.moveToElement(mouseHoverActionBtn).build().perform();
+		pause(3000);
+		clickElement(enrollNowInsideMouseHover);
+		pause(3000);
+	}
+	
+	public void switchBetweenWindows() {
+		pause(3000);
+		clickElement(loginHeader);
+		inputText(username, "mtks483@gmail.com");
+		inputText(password, "Tofael@483");
+		clickElement(loginBtn);
+		clickElement(automationBtn);
+		Actions actions = new Actions(driver);
+		actions.moveToElement(mouseHoverActionBtn).build().perform();
+		pause(3000);
+		clickElement(enrollNowInsideMouseHover); // a child window will open
+		pause(3000);
+		//avobe actions are just to go to the different window
+		//getWindowHandle() method can handle only one window
+		//getWindowHandles() method can handle more than one window
+		Set<String> allWindowHandles =  driver.getWindowHandles(); //we have to keep it under set or list. since 		we don't want duplicate we well use 	set
+		//Extract Parent and child window from all window handles
+		String parent = (String) allWindowHandles.toArray()[0];
+		String child = (String) allWindowHandles.toArray()[1];
+		driver.switchTo().window(child);
+		pause(3000);
+		verifyTextOfTheWebElement(childWindowHeader, "Please enter your personal and contact information.");
+		pause(3000);
+	}
+	
+	public void registration() {
+		pause(3000);
+		clickElement(loginHeader);
+		inputText(username, "mtks483@gmail.com");
+		inputText(password, "Tofael@483");
+		clickElement(loginBtn);
+		clickElement(automationBtn);
+		/*
+		 * Actions actions = new Actions(driver);
+		 * actions.moveToElement(mouseHoverActionBtn).build().perform(); pause(3000);
+		 * clickElement(enrollNowInsideMouseHover); // a child window will open
+		 * pause(3000);
+		 */
+		//avobe actions are just to go to the different window
+		//getWindowHandle() method can handle only one window
+		//getWindowHandles() method can handle more than one window
+		/*
+		 * Set<String> allWindowHandles = driver.getWindowHandles(); //we have to keep
+		 * it under set or list. since we don't want duplicate we well use set //Extract
+		 * Parent and child window from all window handles String parent = (String)
+		 * allWindowHandles.toArray()[0]; String child = (String)
+		 * allWindowHandles.toArray()[1]; driver.switchTo().window(child); pause(3000);
+		 *///avobe actions are just to move to the Enroll Now window
+		switchToChildWindow(driver, mouseHoverActionBtn, enrollNowInsideMouseHover);
+		inputText(fName, "Ana");
+		pause(2000);
+		inputText(mName, "Marizun");
+		pause(2000);
+		inputText(lName, "Khatimun");
+		pause(2000);
+		
+		//clickElement(imDropDown);
+		//use of dropdown -> select by value
+		select = new Select(imDropDown);
+		select.selectByValue("Staff");//pass String value //we have to make sure to select value. (not text)
+		pause(3000);
+		
+		//select by index. (not used much in the industry)
+		select = new Select(courseWishToEnroll);
+		select.selectByIndex(1); //for choosing python, we took index 1, here index 0 is for the CourseWishToEnroll;
+		pause(3000);
+		
+		inputText(phoneNumber, "5165165167");
+		pause(2000);
+		inputText(emailInput, "emailKoro@gmail.com");
+		pause(2000);
+		inputText(passwordInput, "Scanner#6!3#234%&Okay*");
+		pause(2000);
+		
+		selectDropdown(gender, "Other"); //select by visible text from commonActions
+		
+		//select by visible text.
+		select = new Select(birthYear);
+		select.selectByVisibleText("1965"); //String type //make sure to select the text. (not value)
+		pause(5000);
+		
+		//select from dropdown one by one... method from commonActions
+		//selectElelementFromDropdownOnebyOne(birthYear, birthYearList); it takes very long time to execute. thats why we comment out this. i already tested it. it passed.`
+		pause(5000);	
+	}
+	
+	public void useOfKeyboardKeys() {
+		pause(3000);
+		clickElement(loginHeader);
+		pause(3000);
+		//inputText(username, "mtks483@gmail.com");
+		inputTextThenClickTab(username, "mtks483@gmail.com");
+		pause(3000);
+		inputTextThenClickEnter(password, "Tofael@483");
+		//inputTextThenClickReturn(password, "Tofael@483");//Keys.RETURN and Keys.ENTER both works as same
+		pause(3000);
+
+		
+
 	}
 	
 

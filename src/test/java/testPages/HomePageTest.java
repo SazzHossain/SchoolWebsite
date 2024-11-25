@@ -81,5 +81,25 @@ public class HomePageTest extends BaseClass {
 	public void loginToTheEnthrallItTest() {
 		homePage.loginToEnthrallIT();
 	}
+	
+	@Test
+	public void mouseHoverOverTest() {
+		homePage.useOfMouseHoverOver();
+	}
+	
+	@Test
+	public void switchBetweenWindowsTest() {
+		homePage.switchBetweenWindows();
+	}
+	
+	@Test
+	public void registrationTest() {
+		homePage.registration();
+	}
+	
+	@Test
+	public void useOfKeyboardKeyTest() {
+		homePage.useOfKeyboardKeys();
+	}
 
 }

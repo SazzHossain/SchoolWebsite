@@ -3,7 +3,6 @@ package commonMethods;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
-
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
